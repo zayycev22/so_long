@@ -6,7 +6,7 @@
 /*   By: larobbie <larobbie@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 19:06:26 by larobbie          #+#    #+#             */
-/*   Updated: 2022/05/04 19:22:41 by larobbie         ###   ########.fr       */
+/*   Updated: 2022/05/04 19:48:42 by larobbie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	go_up(t_game *g)
 	y = g->player->pos.j;
 	if (g->map->map[x - 1][y] != '1')
 	{
-		if ((g->map->map[x - 1][y] == '0' || g->map->map[x - 1][y] == 'C')  && \
+		if ((g->map->map[x - 1][y] == '0' || g->map->map[x - 1][y] == 'C') && \
 			g->map->map[x - 1][y] != 'E')
 		{
 			if (g->map->map[x - 1][y] == 'C')
@@ -48,7 +48,7 @@ static void	go_down(t_game *g)
 	y = g->player->pos.j;
 	if (g->map->map[x + 1][y] != '1')
 	{
-		if ((g->map->map[x + 1][y] == '0' || g->map->map[x + 1][y] == 'C')  && \
+		if ((g->map->map[x + 1][y] == '0' || g->map->map[x + 1][y] == 'C') && \
 			g->map->map[x + 1][y] != 'E')
 		{
 			if (g->map->map[x + 1][y] == 'C')
@@ -102,7 +102,7 @@ static void	go_right(t_game *g)
 	y = g->player->pos.j;
 	if (g->map->map[x][y + 1] != '1')
 	{
-		if ((g->map->map[x][y + 1] == '0' || g->map->map[x][y + 1] == 'C')  && \
+		if ((g->map->map[x][y + 1] == '0' || g->map->map[x][y + 1] == 'C') && \
 			g->map->map[x][y + 1] != 'E')
 		{
 			if (g->map->map[x][y + 1] == 'C')
