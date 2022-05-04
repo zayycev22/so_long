@@ -6,7 +6,7 @@
 /*   By: larobbie <larobbie@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 22:42:00 by larobbie          #+#    #+#             */
-/*   Updated: 2022/05/04 19:14:27 by larobbie         ###   ########.fr       */
+/*   Updated: 2022/05/04 19:52:05 by larobbie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 void	error_exit(void)
 {
-	write(1, "error\n", 6);
+	write(1, "Error\n", 6);
 	exit(-1);
 }
