@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbombadi <sbombadi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: larobbie <larobbie@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/12 02:41:33 by sbombadi          #+#    #+#             */
-/*   Updated: 2022/02/12 02:43:34 by sbombadi         ###   ########.fr       */
+/*   Created: 2022/05/04 19:06:26 by larobbie          #+#    #+#             */
+/*   Updated: 2022/05/04 19:22:41 by larobbie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,97 +14,109 @@
 
 static void	go_up(t_game *g)
 {
-	if (g->map[g->pos_y - 1][g->pos_x] != '1')
+	int	x;
+	int	y;
+
+	x = g->player->pos.i;
+	y = g->player->pos.j;
+	if (g->map->map[x - 1][y] != '1')
 	{
-		if (g->map[g->pos_y - 1][g->pos_x] == '0')
+		if ((g->map->map[x - 1][y] == '0' || g->map->map[x - 1][y] == 'C')  && \
+			g->map->map[x - 1][y] != 'E')
 		{
-			g->map[g->pos_y - 1][g->pos_x] = 'P';
-			g->map[g->pos_y][g->pos_x] = '0';
+			if (g->map->map[x - 1][y] == 'C')
+				g->collect->count--;
+			g->map->map[x - 1][y] = 'P';
+			g->map->map[x][y] = '0';
+			g->player->moves++;
 		}
-		if (g->map[g->pos_y - 1][g->pos_x] == 'C')
-		{
-			g->map[g->pos_y - 1][g->pos_x] = 'P';
-			g->map[g->pos_y][g->pos_x] = '0';
-			g->coins--;
-		}
-		if (g->map[g->pos_y - 1][g->pos_x] == 'E' && g->coins == 0)
+		if (g->map->map[x - 1][y] == 'E' && g->collect->count == 0)
 			win(g);
-		if (g->map[g->pos_y - 1][g->pos_x] != 'E')
-			g->moves++;
-		g->pos_y--;
-		printf("%d\n", g->moves);
+		printnb(g->player->moves);
+		ft_putchar_fd('\n', 0);
+		g->player->pic.name = "pic/up-2.xpm";
+		g->player->pos.i--;
 	}
 }
 
 static void	go_down(t_game *g)
 {
-	if (g->map[g->pos_y + 1][g->pos_x] != '1')
+	int	x;
+	int	y;
+
+	x = g->player->pos.i;
+	y = g->player->pos.j;
+	if (g->map->map[x + 1][y] != '1')
 	{
-		if (g->map[g->pos_y + 1][g->pos_x] == '0')
+		if ((g->map->map[x + 1][y] == '0' || g->map->map[x + 1][y] == 'C')  && \
+			g->map->map[x + 1][y] != 'E')
 		{
-			g->map[g->pos_y + 1][g->pos_x] = 'P';
-			g->map[g->pos_y][g->pos_x] = '0';
+			if (g->map->map[x + 1][y] == 'C')
+				g->collect->count--;
+			g->map->map[x + 1][y] = 'P';
+			g->map->map[x][y] = '0';
+			g->player->moves++;
+			g->player->pos.i++;
+			printnb(g->player->moves);
+			g->player->pic.name = "pic/down-2.xpm";
+			ft_putchar_fd('\n', 0);
 		}
-		if (g->map[g->pos_y + 1][g->pos_x] == 'C')
-		{
-			g->map[g->pos_y + 1][g->pos_x] = 'P';
-			g->map[g->pos_y][g->pos_x] = '0';
-			g->coins--;
-		}
-		if (g->map[g->pos_y + 1][g->pos_x] == 'E' && g->coins == 0)
+		if (g->map->map[x + 1][y] == 'E' && !g->collect->count)
 			win(g);
-		if (g->map[g->pos_y + 1][g->pos_x] != 'E')
-			g->moves++;
-		g->pos_y++;
-		printf("%d\n", g->moves);
 	}
 }
 
 static void	go_left(t_game *g)
 {
-	if (g->map[g->pos_y][g->pos_x - 1] != '1')
+	int	x;
+	int	y;
+
+	x = g->player->pos.i;
+	y = g->player->pos.j;
+	if (g->map->map[x][y - 1] != '1')
 	{
-		if (g->map[g->pos_y][g->pos_x - 1] == '0')
+		if ((g->map->map[x][y - 1] == '0' || g->map->map[x][y - 1] == 'C') && \
+			g->map->map[x][y - 1] != 'E')
 		{
-			g->map[g->pos_y][g->pos_x - 1] = 'P';
-			g->map[g->pos_y][g->pos_x] = '0';
+			if (g->map->map[x][y - 1] == 'C')
+				g->collect->count--;
+			g->map->map[x][y - 1] = 'P';
+			g->map->map[x][y] = '0';
+			g->player->moves++;
+			g->player->pos.j--;
+			printnb(g->player->moves);
+			g->player->pic.name = "pic/left-2.xpm";
+			ft_putchar_fd('\n', 0);
 		}
-		if (g->map[g->pos_y][g->pos_x - 1] == 'C')
-		{
-			g->map[g->pos_y][g->pos_x - 1] = 'P';
-			g->map[g->pos_y][g->pos_x] = '0';
-			g->coins--;
-		}
-		if (g->map[g->pos_y][g->pos_x - 1] == 'E' && g->coins == 0)
+		if (g->map->map[x][y - 1] == 'E' && !g->collect->count)
 			win(g);
-		if (g->map[g->pos_y][g->pos_x - 1] != 'E')
-			g->moves++;
-		g->pos_x--;
-		printf("%d\n", g->moves);
 	}
 }
 
 static void	go_right(t_game *g)
 {
-	if (g->map[g->pos_y][g->pos_x + 1] != '1')
+	int	x;
+	int	y;
+
+	x = g->player->pos.i;
+	y = g->player->pos.j;
+	if (g->map->map[x][y + 1] != '1')
 	{
-		if (g->map[g->pos_y][g->pos_x + 1] == '0')
+		if ((g->map->map[x][y + 1] == '0' || g->map->map[x][y + 1] == 'C')  && \
+			g->map->map[x][y + 1] != 'E')
 		{
-			g->map[g->pos_y][g->pos_x + 1] = 'P';
-			g->map[g->pos_y][g->pos_x] = '0';
+			if (g->map->map[x][y + 1] == 'C')
+				g->collect->count--;
+			g->map->map[x][y + 1] = 'P';
+			g->map->map[x][y] = '0';
+			g->player->moves++;
+			g->player->pos.j++;
+			g->player->pic.name = "pic/right-2.xpm";
+			printnb(g->player->moves);
+			ft_putchar_fd('\n', 0);
 		}
-		if (g->map[g->pos_y][g->pos_x + 1] == 'C')
-		{
-			g->map[g->pos_y][g->pos_x + 1] = 'P';
-			g->map[g->pos_y][g->pos_x] = '0';
-			g->coins--;
-		}
-		if (g->map[g->pos_y][g->pos_x + 1] == 'E' && g->coins == 0)
+		if (g->map->map[x][y + 1] == 'E' && !g->collect->count)
 			win(g);
-		if (g->map[g->pos_y][g->pos_x + 1] != 'E')
-			g->moves++;
-		g->pos_x++;
-		printf("%d\n", g->moves);
 	}
 }
 
@@ -118,6 +130,7 @@ int	key_event(int code, t_game *g)
 		go_left(g);
 	if (code == 2)
 		go_right(g);
+	check_line(g);
 	if (code == 53)
 		free_all(g);
 	return (0);

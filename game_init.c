@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sergejleskin <sergejleskin@student.42.f    +#+  +:+       +#+        */
+/*   By: larobbie <larobbie@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/12 02:40:03 by sbombadi          #+#    #+#             */
-/*   Updated: 2022/02/20 15:38:38 by sergejleski      ###   ########.fr       */
+/*   Created: 2022/05/04 19:07:30 by larobbie          #+#    #+#             */
+/*   Updated: 2022/05/04 19:21:06 by larobbie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 void	win(t_game *g)
 {
-	g->moves++;
-	printf("%d\nwin\n", g->moves);
-	mlx_clear_window(g->mlx, g->window);
+	g->player->moves++;
+	printnb(g->player->moves);
+	ft_putstr_fd("\nwin\n", 0);
+	mlx_clear_window(g->surface.mlx, g->surface.mlx_win);
 	exit (0);
 }
 
@@ -25,34 +26,39 @@ static void	put_image(t_game *g)
 	int	x;
 
 	x = 40;
-	g->img->player = mlx_xpm_file_to_image(g->mlx, "pic/player.xpm", &x, &x);
-	g->img->item = mlx_xpm_file_to_image(g->mlx, "pic/coin.xpm", &x, &x);
-	g->img->door = mlx_xpm_file_to_image(g->mlx, "pic/door.xpm", &x, &x);
-	g->img->wall = mlx_xpm_file_to_image(g->mlx, "pic/wall.xpm", &x, &x);
-	g->img->back = mlx_xpm_file_to_image(g->mlx, "pic/background.xpm", &x, &x);
+	g->player->pic.img = mlx_xpm_file_to_image(g->surface.mlx, \
+		g->player->pic.name, &x, &x);
+	g->collect->pic.img = mlx_xpm_file_to_image(g->surface.mlx, \
+		"pic/bomb.xpm", &x, &x);
+	g->exit->pic.img = mlx_xpm_file_to_image(g->surface.mlx, \
+		"pic/door.xpm", &x, &x);
+	g->wall->pic.img = mlx_xpm_file_to_image(g->surface.mlx, \
+		"pic/wall.xpm", &x, &x);
+	g->back->pic.img = mlx_xpm_file_to_image(g->surface.mlx, \
+		"pic/background.xpm", &x, &x);
 }
 
 static void	draw_images_1(t_game *g, int x, int y)
 {
-	if (g->map[y][x] == '1')
-		mlx_put_image_to_window(g->mlx, g->window,
-			g->img->wall, x * 40, y * 40);
-	if (g->map[y][x] == '0')
-		mlx_put_image_to_window(g->mlx, g->window,
-			g->img->back, x * 40, y * 40);
-	if (g->map[y][x] == 'P')
+	if (g->map->map[x][y] == '1')
+		mlx_put_image_to_window(g->surface.mlx, g->surface.mlx_win,
+			g->wall->pic.img, y * 40, x * 40);
+	if (g->map->map[x][y] == '0')
+		mlx_put_image_to_window(g->surface.mlx, g->surface.mlx_win,
+			g->back->pic.img, y * 40, x * 40);
+	if (g->map->map[x][y] == 'P')
 	{
-		mlx_put_image_to_window(g->mlx, g->window,
-			g->img->player, x * 40, y * 40);
-		g->pos_x = x;
-		g->pos_y = y;
+		mlx_put_image_to_window(g->surface.mlx, g->surface.mlx_win,
+			g->player->pic.img, y * 40, x * 40);
+		g->player->pos.i = x;
+		g->player->pos.j = y;
 	}
-	if (g->map[y][x] == 'C')
-		mlx_put_image_to_window(g->mlx, g->window,
-			g->img->item, x * 40, y * 40);
-	if (g->map[y][x] == 'E')
-		mlx_put_image_to_window(g->mlx, g->window,
-			g->img->door, x * 40, y * 40);
+	if (g->map->map[x][y] == 'C')
+		mlx_put_image_to_window(g->surface.mlx, g->surface.mlx_win,
+			g->collect->pic.img, y * 40, x * 40);
+	if (g->map->map[x][y] == 'E')
+		mlx_put_image_to_window(g->surface.mlx, g->surface.mlx_win,
+			g->exit->pic.img, y * 40, x * 40);
 }
 
 void	draw_images(t_game *g)
@@ -60,29 +66,29 @@ void	draw_images(t_game *g)
 	int	x;
 	int	y;
 
-	y = 0;
-	while (y < g->s_y)
+	x = 0;
+	put_image(g);
+	while (x < g->map->n)
 	{
-		x = 0;
-		while (x < g->s_x)
+		y = 0;
+		while (y < g->map->m)
 		{
 			draw_images_1(g, x, y);
-			x++;
+			y++;
 		}
-		y++;
+		x++;
 	}
 }
 
 void	so_long(t_game *g)
 {
-	g->mlx = mlx_init();
-	g->img = malloc(sizeof(t_i));
-	ft_memset(g->img, 0, sizeof(t_i));
-	g->window = mlx_new_window(g->mlx, g->s_x * 40, g->s_y * 40, "game");
+	g->surface.mlx = mlx_init();
+	g->surface.mlx_win = mlx_new_window(g->surface.mlx, \
+		g->map->m * 40, g->map->n * 40, "game");
 	put_image(g);
 	draw_images(g);
-	mlx_hook(g->window, 02, 0, key_event, g);
-	mlx_hook(g->window, 17, 0, free_all, g);
-	mlx_loop_hook(g->mlx, rewrite_map, g);
-	mlx_loop(g->mlx);
+	mlx_hook(g->surface.mlx_win, 02, 0, key_event, g);
+	mlx_hook(g->surface.mlx_win, 17, 0, free_all, g);
+	mlx_loop_hook(g->surface.mlx, rewrite_map, g);
+	mlx_loop(g->surface.mlx);
 }

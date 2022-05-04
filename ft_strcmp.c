@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sergejleskin <sergejleskin@student.42.f    +#+  +:+       +#+        */
+/*   By: larobbie <larobbie@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/09 20:38:31 by sergejleski       #+#    #+#             */
-/*   Updated: 2022/02/09 20:39:29 by sergejleski      ###   ########.fr       */
+/*   Created: 2022/05/04 19:08:35 by larobbie          #+#    #+#             */
+/*   Updated: 2022/05/04 19:19:57 by larobbie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

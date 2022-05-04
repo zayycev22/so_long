@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: larobbie <larobbie@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/09 20:39:13 by sergejleski       #+#    #+#             */
-/*   Updated: 2022/04/28 22:43:48 by larobbie         ###   ########.fr       */
+/*   Created: 2022/05/04 19:06:02 by larobbie          #+#    #+#             */
+/*   Updated: 2022/05/04 19:24:48 by larobbie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,54 +32,64 @@ typedef struct s_surface {
 	void	*mlx;
 }				t_surface;
 
-typedef struct	s_pos {
+typedef struct s_pos {
 	int	i;
 	int	j;
 }				t_pos;
 
-
-typedef struct	s_pic {
+typedef struct s_pic {
 	int		weight;
 	int		height;
 	char	*name;
 	void	*img;
 }		t_pic;
 
-typedef struct	s_player {
+typedef struct s_player {
 	t_pos	pos;
 	t_pic	pic;
 	int		moves;
 	int		count;
 }				t_player;
 
-typedef struct	s_collect {
+typedef struct s_collect {
 	t_pos	pos;
 	int		collected;
 	t_pic	pic;
 	int		count;
 }				t_collect;
 
-typedef struct	s_exit {
+typedef struct s_wall {
+	t_pos	pos;
+	t_pic	pic;
+}				t_wall;
+
+typedef struct s_exit {
 	t_pos	pos;
 	int		reached;
 	t_pic	pic;
 	int		count;
 }				t_exit;
 
-typedef struct	s_map {
+typedef struct s_background {
+	t_pos	pos;
+	t_pic	pic;
+}				t_background;
+
+typedef struct s_map {
 	int			n;
 	int			m;
 	char		**map;
 }				t_map;
 
-typedef struct	s_game {
-	t_surface	surface;
-	t_map		*map;
-	t_player	player;
-	t_collect	collect;
-	t_exit		exit;
+typedef struct s_game {
+	t_surface		surface;
+	t_map			*map;
+	t_player		*player;
+	t_wall			*wall;
+	t_collect		*collect;
+	t_exit			*exit;
+	t_background	*back;
 }				t_game;
-
 
 # define BUFFER_SIZE 21
 
@@ -107,5 +117,12 @@ int		rewrite_map(t_game *g);
 int		key_event(int code, t_game *g);
 void	win(t_game *g);
 int		free_all(t_game *g);
-void	error_exit();
+void	error_exit(void);
+void	mem(t_game *g);
+void	zero(t_game *g);
+void	printnb(int nb);
+void	ft_putchar_fd(char c, int fd);
+int		ft_putstr_fd(char *s, int fd);
+char	*ft_itoa(long n);
+void	check_line(t_game *g);
 #endif

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: larobbie <larobbie@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/09 20:39:07 by sergejleski       #+#    #+#             */
-/*   Updated: 2022/04/28 22:59:58 by larobbie         ###   ########.fr       */
+/*   Created: 2022/05/04 19:06:09 by larobbie          #+#    #+#             */
+/*   Updated: 2022/05/04 19:25:17 by larobbie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,16 @@ void	check_map(t_game *g, char *argv)
 	int		fd;
 
 	i = 0;
+	g->map = malloc(sizeof(t_map));
 	g->map->n = find_s_y(argv);
 	fd = open(argv, O_RDONLY);
-	g->map = malloc(sizeof(char *) * g->map->n);
+	g->map->map = malloc(sizeof(char *) * g->map->n);
 	if (fd == -1 || !g->map || g->map->n < 3)
 		error_exit();
 	s = get_next_line(fd);
 	while (i < g->map->n)
 	{
-		g->map[i] = s;
+		g->map->map[i] = s;
 		i++;
 		s = get_next_line(fd);
 	}
@@ -74,6 +75,7 @@ int	main(int argc, char **argv)
 	check_format(argv[1]);
 	game = malloc(sizeof(t_game));
 	ft_memset(game, 0, sizeof(t_game));
+	mem(game);
 	check_map(game, argv[1]);
 	so_long(game);
 	exit (0);

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: larobbie <larobbie@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/09 20:38:22 by sergejleski       #+#    #+#             */
-/*   Updated: 2022/04/28 23:00:42 by larobbie         ###   ########.fr       */
+/*   Created: 2022/05/04 19:09:38 by larobbie          #+#    #+#             */
+/*   Updated: 2022/05/04 19:15:49 by larobbie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,23 @@ void	check_map_4(t_game *g)
 	int	i;
 	int	j;
 
-	j = 0;
-	while (j < g->map->n)
+	i = 0;
+	while (i < g->map->n)
 	{
-		i = 0;
-		while (i < g->map->m)
+		j = 0;
+		while (j < g->map->m)
 		{
-			if (g->map->map[j][i] == 'P')
-				g->player.count++;
-			if (g->map->map[j][i] == 'C')
-				g->collect.count++;
-			if (g->map->map[j][i] == 'E')
-				g->exit.count++;
-			i++;
+			if (g->map->map[i][j] == 'P')
+				g->player->count++;
+			if (g->map->map[i][j] == 'C')
+				g->collect->count++;
+			if (g->map->map[i][j] == 'E')
+				g->exit->count++;
+			j++;
 		}
-		j++;
+		i++;
 	}
-	if (g->player.count != 1 || g->collect.count < 1 || g->exit.count < 1)
+	if (g->player->count != 1 || g->collect->count < 1 || g->exit->count < 1)
 		error_exit();
 }
 

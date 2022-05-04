@@ -11,6 +11,11 @@ FILES =	ft_memset.c \
 		hooks.c \
 		hooks_1.c \
 		error.c \
+		ft_putchar.c \
+		ft_putstr_fd.c \
+		ft_printnb.c \
+		ft_itoa.c \
+		check_line.c \
 
 HEADER = so_long.h
 

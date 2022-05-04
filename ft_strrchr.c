@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sergejleskin <sergejleskin@student.42.f    +#+  +:+       +#+        */
+/*   By: larobbie <larobbie@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/09 20:38:35 by sergejleski       #+#    #+#             */
-/*   Updated: 2022/02/09 20:39:27 by sergejleski      ###   ########.fr       */
+/*   Created: 2022/05/04 19:07:56 by larobbie          #+#    #+#             */
+/*   Updated: 2022/05/04 19:19:54 by larobbie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

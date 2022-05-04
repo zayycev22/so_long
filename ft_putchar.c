@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: larobbie <larobbie@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/28 22:42:00 by larobbie          #+#    #+#             */
-/*   Updated: 2022/05/04 19:14:27 by larobbie         ###   ########.fr       */
+/*   Created: 2022/05/04 19:08:51 by larobbie          #+#    #+#             */
+/*   Updated: 2022/05/04 19:18:42 by larobbie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	error_exit(void)
+void	ft_putchar_fd(char c, int fd)
 {
-	write(1, "error\n", 6);
-	exit(-1);
+	write(fd, &c, 1);
 }

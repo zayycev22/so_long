@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbombadi <sbombadi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: larobbie <larobbie@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/12 02:41:36 by sbombadi          #+#    #+#             */
-/*   Updated: 2022/02/12 02:42:09 by sbombadi         ###   ########.fr       */
+/*   Created: 2022/05/04 19:06:38 by larobbie          #+#    #+#             */
+/*   Updated: 2022/05/04 19:06:40 by larobbie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	free_all(t_game *g)
 
 int	rewrite_map(t_game *g)
 {
-	mlx_clear_window(g->mlx, g->window);
+	mlx_clear_window(g->surface.mlx, g->surface.mlx_win);
 	draw_images(g);
 	return (0);
 }
